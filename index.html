@@ -2,17 +2,33 @@
 	<head>
 		<!-- Red Ball V1 -->
 		<script>
-			var		v = 0, h = 5, v_speed = 3, h_speed = 0;
+			var		v = 2, h = 5, v_speed = 3, h_speed = 0;
 			
 			function time_passes() {
-				alert( 100 );
+				v += v_speed;
+				h += h_speed;
+				if ( h >= 100 ) {
+					h = 100;
+					h_speed = -h_speed;
+				}
+				if ( v >= 100 ) {
+					v = 100;
+					v_speed = -v_speed;
+				} else if ( v <= 0 ) {
+					v = 0;
+					v_speed = -v_speed;
+				}
+				h_speed++;
+				document.getElementById( "df_v" ).value = v;
+				document.getElementById( "df_h" ).value = h;
 			}
 		</script>
 	</head>
 	<body>
-		<h2>red ball v1</h2>
+		<h2>red ball v2</h2>
 		<form name="fr_input">
-			<input type="text" id="df_height">
+			v <input type="text" id="df_v">
+			h <input type="text" id="df_h">
 			<input type="button" value="pass" onclick="time_passes()">
 		</form>
 	</body>
