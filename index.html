@@ -1,45 +1,57 @@
 <html>
 	<head>
-		<!-- Red Ball V3 -->
+		<!-- Red Ball V4 -->
+		<style>
+			#dv_ball	{	width: 2.5vw; height: 4vh; background-color: red;
+									position: absolute; left: 0; top: 0; 
+									border-radius: 2vh; }
+			#dv_sky		{	width: 100vw; height: 90vh;
+									background-color: blue;}
+			#dv_floor	{	width: 100vw; height: 10vh; 
+									background-color: yellow; }
+		</style>
 		<script>
-			var		v = 0, h = 0, v_speed = 3, h_speed = 0;
+			var		v = 0, h = 0, v_speed = 0, h_speed = 3;
 			
 			function time_passes() {
 				v += v_speed;
 				h += h_speed;
-				if ( h >= 100 ) {
-					h = 100;
-					h_speed = -h_speed;
-				}
 				if ( v >= 100 ) {
 					v = 100;
 					v_speed = -v_speed;
-				} else if ( v <= 0 ) {
-					v = 0;
-					v_speed = -v_speed;
 				}
-				h_speed++;
+				if ( h >= 100 ) {
+					h = 100;
+					h_speed = -h_speed;
+				} else if ( h <= 0 ) {
+					h = 0;
+					h_speed = -h_speed;
+				}
+				v_speed++;
+				if ( v < 100 ) {
+					h_speed *= 0.999;
+				} else {
+					h_speed *= 0.98;
+				}
 				document.getElementById( "df_v" ).value = v;
 				document.getElementById( "df_h" ).value = h;
 				document.getElementById( "dv_ball" ).style.left = 
-					v * 97.5 / 100 + "vw";
+					h * 97.5 / 100 + "vw";
 				document.getElementById( "dv_ball" ).style.top =
-					h * 86 / 100 + "vh";
+					v * 86 / 100 + "vh";
+				setTimeout( time_passes, 100 );
 			}
 		</script>
 	</head>
 	<body style="margin: 0;">
-		<div style="width: 100vw; height: 90vh; 
-			background-color: blue;">
+		<div id="dv_sky" style="">
 			<form name="fr_input">
 				v <input type="text" id="df_v">
 				h <input type="text" id="df_h">
 				<input type="button" value="pass" onclick="time_passes()">
 			</form>
 		</div>
-		<div style="width: 100vw; height: 10vh; 
-			background-color: yellow; "></div>
-		<div id="dv_ball" style="width: 2.5vw; height: 4vh; 
-			background-color: red; position: absolute; left: 0; top: 0; border-radius: 2vh;"></div>
+		<div id="dv_floor" style=""></div>
+		<div id="dv_ball" style=""></div>
 	</body>
 </html>
