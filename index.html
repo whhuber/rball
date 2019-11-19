@@ -1,17 +1,18 @@
 <html>
 	<head>
-		<!-- Red Ball V4 -->
+		<!-- Red Ball V5 -->
 		<style>
 			#dv_ball	{	width: 2.5vw; height: 4vh; background-color: red;
 									position: absolute; left: 0; top: 0; 
 									border-radius: 2vh; }
 			#dv_sky		{	width: 100vw; height: 90vh;
 									background-color: blue;}
-			#dv_floor	{	width: 100vw; height: 10vh; 
-									background-color: yellow; }
+			.floor		{	width: 25%; height: 10vh; 
+									background-color: yellow; float: left; }
 		</style>
 		<script>
-			var		v = 0, h = 0, v_speed = 0, h_speed = 3;
+			var		v = 0, h = 0, v_speed = 0, h_speed = 3, 
+						active_floor = 1;
 			
 			function time_passes() {
 				v += v_speed;
@@ -41,6 +42,24 @@
 					v * 86 / 100 + "vh";
 				setTimeout( time_passes, 100 );
 			}
+			
+			document.addEventListener( "keypress", testo, false );
+			function testo( e ) {
+				if ( e.keyCode == 118 ) {
+					active_floor = 1;
+				} else if ( e.keyCode == 98 ) {
+					active_floor = 2;
+				} else if ( e.keyCode == 110 ) {
+					active_floor = 3;
+				} else if ( e.keyCode == 109 ) {
+					active_floor = 4;
+				}
+				for ( var x = 1; x <= 4; x++ ) {
+					document.getElementById( "dv_floor" + x 
+						).style.backgroundColor = 
+						(x == active_floor) ? "yellow" : "blue";
+				}
+			}
 		</script>
 	</head>
 	<body style="margin: 0;">
@@ -51,7 +70,10 @@
 				<input type="button" value="pass" onclick="time_passes()">
 			</form>
 		</div>
-		<div id="dv_floor" style=""></div>
+		<div id="dv_floor1" class="floor" style=""></div>
+		<div id="dv_floor2" class="floor" style=""></div>
+		<div id="dv_floor3" class="floor" style=""></div>
+		<div id="dv_floor4" class="floor" style=""></div>
 		<div id="dv_ball" style=""></div>
 	</body>
 </html>
